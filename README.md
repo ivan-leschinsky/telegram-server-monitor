@@ -31,7 +31,7 @@ sudo apt install python3-psutil python3-requests python3-netifaces
 su telegram
 cd ~
 
-git clone https://github.com/syxolk/telegram-server-monitor.git
+git clone https://github.com/ivan-leschinsky/telegram-server-monitor.git
 cd telegram-server-monitor
 cp config.template.py config.py
 

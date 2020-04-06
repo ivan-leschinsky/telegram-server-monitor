@@ -28,6 +28,9 @@ NOTIFY_CPU_PERCENT = 50
 
 # Maximum memory percent considered to be normal
 NOTIFY_RAM_PERCENT = 50
+RESTART_ON_HIGH_RAM = False
+RESTART_ON_HIGH_RAM_PERCENT = 70
+RESTART_ON_HIGHRAM_CMD = '/etc/init.d/some_service restart'
 
 # Maximum pids used for all processes and threads in precent
 NOTIFY_PID_PERCENT = 50

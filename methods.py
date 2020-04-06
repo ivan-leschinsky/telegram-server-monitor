@@ -341,13 +341,13 @@ def _getServices():
         else:
             dontknow.append(m.group("service"))
     return (active,inactive,dontknow)
-    
+
 def commandServices(message):
     chat_id = message["chat"]["id"]
     if not storage.isRegisteredUser(chat_id):
         sendAuthMessage(chat_id)
         return
-    
+
     (active,_,dontknow) = _getServices()
     text = " ** Active Services **\n"
     text += "\n".join(active)
@@ -380,6 +380,10 @@ def alarms():
         if ram > config.NOTIFY_RAM_PERCENT:
             text += "RAM: {0} %\n".format(ram)
             should_send = True
+            if config.RESTART_ON_HIGH_RAM and ram >= config.RESTART_ON_HIGH_RAM_PERCENT:
+                text += "Restarted service because of RAM: {0} %\n".format(ram)
+                text += open(config.RESTART_ON_HIGHRAM_CMD).read().strip()
+                text += "\n"
 
         ports = ["{0} ({1})".format(c.laddr[1],prettyPrintFamily(c.family))
                  for c in psutil.net_connections() if c.status == "LISTEN"]
@@ -407,7 +411,7 @@ def alarms():
 
             for s in service_diff:
                 text += "{0} service: {1}\n".format("Started" if got_more else "Stopped",s)
-   
+
             last_active_services = active
 
         procs = []
